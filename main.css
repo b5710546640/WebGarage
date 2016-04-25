@@ -1,0 +1,23 @@
+#foreground{
+  height: 800px;;
+  background-color: aqua;
+}
+
+#input-lc{
+ width: 300px;
+}
+
+#input-brand{
+ width: 300px;
+}
+
+#input{
+
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+#status{
+  padding-left: 100px;
+  padding-right: 100px;
+}
