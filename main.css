@@ -1,23 +1,45 @@
 #foreground{
-  height: 800px;;
-  background-color: aqua;
+    height: 800px;;
+    background-color: aqua;
+}
+
+#customer_profile{
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+#input-idcard{
+    width: 300px;
 }
 
 #input-lc{
- width: 300px;
+    width: 300px;
 }
 
 #input-brand{
- width: 300px;
+    width: 300px;
 }
+
+
 
 #input{
 
-  padding-left: 100px;
-  padding-right: 100px;
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+#myTab-right{
+    padding-left: 100px;
+    padding-right: 30px;
+}
+
+#input2{
+
+    padding-left: 100px;
+    padding-right: 100px;
 }
 
 #status{
-  padding-left: 100px;
-  padding-right: 100px;
+    padding-left: 100px;
+    padding-right: 100px;
 }
