@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -29,64 +30,64 @@
                     <div class="tab-pane fade active in"  id="profile">
                         <br>
                         <form method = "post" action = "<?php echo htmlspecialchars($_SERVER['PHP_SELF']); 
-            ?>" id = "add_garage_action">
-                        <div class="row" id="input2">
-                            <div class="input-group">
-                                <input type="text" id="input-idcard"
-                                       class="form-control" 
-                                       placeholder="ID card number" name="idcard_person">
+                                                        ?>" id = "add_garage_action">
+                            <div class="row" id="input2">
+                                <div class="input-group">
+                                    <input type="text" id="input-idcard"
+                                           class="form-control" 
+                                           placeholder="ID card number" name="idcard_person">
+                                </div>
+                                <br>
+                                <div class="input-group">
+                                    <div class="row">
+                                        <div class="col-md-6"> <input type="text" id="input-name"
+                                                                      class="form-control" 
+                                                                      placeholder="Customer Name" name="name_person" ></div>
+                                        <div class="col-md-6"> <input type="text" id="input-lastname"
+                                                                      class="form-control" 
+                                                                      placeholder="Customer Name" name="lastname_person" ></div>
+
+                                    </div>
+
+                                </div>
+                                <br>
+                                <div class="row text-right">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-success" type="submit" id="finish"   >Finish</button>
+                                    </span>
+                                </div>
+                                <br>
                             </div>
-                            <br>
-                            <div class="input-group">
-                               <div class="row">
-                                    <div class="col-md-6"> <input type="text" id="input-name"
-                                       class="form-control" 
-                                       placeholder="Customer Name" name="name_person" ></div>
-                                    <div class="col-md-6"> <input type="text" id="input-lastname"
-                                       class="form-control" 
-                                       placeholder="Customer Name" name="lastname_person" ></div>
-                                    
-                               </div>
-                              
-                            </div>
-                            <br>
-                            <div class="row text-right">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-success" type="submit" id="finish"   >Finish</button>
-                                </span>
-                            </div>
-                            <br>
-                        </div>
                         </form>
                     </div>
                     <div class="tab-pane fade" id="Car_regis_content">
                         <br>
                         <form method = "post" action = "<?php echo htmlspecialchars($_SERVER['PHP_SELF']); 
-            ?>" id = "add_car_action">
-                        <div class="row" id="input">
-                            <div class="row">
-                                <div class="input-group">
-                                    <input type="text" id="input-lc" class="form-control" placeholder="Car License" name="lc_number" >
+                                                        ?>" id = "add_car_action">
+                            <div class="row" id="input">
+                                <div class="row">
+                                    <div class="input-group">
+                                        <input type="text" id="input-lc" class="form-control" placeholder="Car License" name="lc_number" >
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row"><br></div>
-                            <div class="row">
-                                <input type="text" id="input-brand" class="form-control" placeholder="Car brand" name="car_brand" >
+                                <div class="row"><br></div>
+                                <div class="row">
+                                    <input type="text" id="input-brand" class="form-control" placeholder="Car brand" name="car_brand" >
 
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <input type="text" id="input-brand" class="form-control" placeholder="idcard number" name="idcard" >
+                                </div>
+                                <br>
+                                <div class="row text-right">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-success" type="submit" id="submit_btn">Submit</button>
+                                    </span>
+                                </div>
+                                <br>
                             </div>
-                            <br>
-                            <div class="row">
-                                <input type="text" id="input-brand" class="form-control" placeholder="idcard number" name="idcard" >
-                            </div>
-                            <br>
-                            <div class="row text-right">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-success" type="submit" id="submit_btn">Submit</button>
-                                </span>
-                            </div>
-                            <br>
-                        </div>
-                        </from>
+                            </from>
                     </div>
 
                 </div>
@@ -111,37 +112,47 @@
 
         </div>
         <?php
-        session_start();
-        $idcard = $_POST['idcard_person'];
-        $name_ps = $_POST['name_person'];
-        $lastname_ps = $_POST['lastname_person'];
+//        session_start();
+if(!empty($_POST['idcard_person']) && !empty($_POST['name_person']) && !empty($_POST['lastname_person']) ){
+    $idcard = $_POST['idcard_person'];
+    $name_ps = $_POST['name_person'];
+    $lastname_ps = $_POST['lastname_person'];
+
+
+    if($idcard && $name_ps && $lastname_ps  ) {
+        $connect = mysql_connect("localhost","root","") or die("Couldn't connect to the DB!!");
+        mysql_select_db("parking_registration") or die("Couldn't find database");
+
+        $sql = "INSERT INTO person (id_card_number, person_name , person_lastname) VALUES ('$idcard', '$name_ps' , '$lastname_ps')";
+
+        $query = mysql_query($sql);
+
+    }
+
+    else{
+        die("Please enter the idcard, name, lastname!");
+    }
+}
+else if(!empty($_POST['lc_number']) && !empty($_POST['car_brand']) && !empty($_POST['idcard']) ){
         
         $license = $_POST['lc_number'];
         $carBrand = $_POST['car_brand'];
         $idcard_car = $_POST['idcard'];
-
-
-        if($idcard && $name_ps && $lastname_ps && !$license && !$carBrand && !$idcard_car ) {
+        if($license && $carBrand && $idcard_car ){
             $connect = mysql_connect("localhost","root","") or die("Couldn't connect to the DB!!");
             mysql_select_db("parking_registration") or die("Couldn't find database");
-
-            $sql = "INSERT INTO person (id_card_number, person_name , person_lastname) VALUES ('$idcard', '$name_ps' , '$lastname_ps')";
-
-            $query = mysql_query($sql);
-
-        }
-        else if(!$idcard && !$name_ps && !$lastname_ps && $license && $carBrand && $idcard_car ){
-            $connect = mysql_connect("localhost","root","") or die("Couldn't connect to the DB!!");
-            mysql_select_db("parking_registration") or die("Couldn't find database");
-            $id = "SELECT person_id FROM person WHERE id_card_number = '$idcard_car' ";
-            $sql2 = "INSERT INTO car (license, brand , person_id) VALUES ('$license', '$carBrand' , '$id')";
+            $id = mysql_query("SELECT person_id FROM person WHERE id_card_number = '$idcard_car' ");
+            $id_result =  mysql_result($id,0);
+            
+            
+            $sql2 = "INSERT INTO car (license, brand , person_id) VALUES ('$license', '$carBrand' , '$id_result')";
 
             $query2 = mysql_query($sql2);
 
         }
-        else{
-            die("Please enter the idcard, name, lastname!");
-        }
+}
+
+
         ?>
 
     </body>
