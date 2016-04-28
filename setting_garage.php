@@ -13,7 +13,7 @@
         $query = mysql_query($sql);
     }
     else{
-        die("Please enter the name garage and capacity!S");
+        die("Please enter the name garage and capacity!");
     }
 
 ?>
