@@ -10,8 +10,10 @@
         $sql = "INSERT INTO brand (name) VALUES ('$brand_name')";
 
         $query = mysql_query($sql);
+        header("Location:setting.php");
     }
     else{
+//        header("Location:setting.php");
         die("Please enter the new brand!");
     }
 

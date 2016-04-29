@@ -17,7 +17,7 @@
                     <li class="" id="car_regis_tab"><a href="#Car_regis_content" data-toggle="tab">Car</a></li>
                 </ul>
                 <ul id="myTab-right" class="nav navbar-nav navbar-right">
-                    <li class=""><button class="btn btn-default" type="button" id="setting"><a href="setting.html">Setting</a></button></li>
+                    <li class=""><button class="btn btn-default" type="button" id="setting"><a href="setting.php">Setting</a></button></li>
                 </ul>
                 <br>
 
@@ -72,7 +72,28 @@
                                 </div>
                                 <div class="row"><br></div>
                                 <div class="row">
-                                    <input type="text" id="input-brand" class="form-control" placeholder="Car brand" name="car_brand" >
+<!--                                    <input type="text" id="input-brand" class="form-control" placeholder="Car brand" name="car_brand" >-->
+                                    <div class="form-group">
+                                        <label for="sel1">brand:</label>
+                                        <select name="car_brand" class="form-control" id="sel1"  >
+                                                 
+                                        <?php
+
+                                            session_start();
+                                            $connect = mysql_connect("localhost","root","") or die("Couldn't connect to the DB!!");
+                                            mysql_select_db("parking_registration") or die("Couldn't find database");
+
+                                            $query = "SELECT * FROM brand";
+                                            $result = mysql_query($query);
+                                            while ($rows = mysql_fetch_array($result)) {
+                                                echo "<option value=" .$rows['name']. ">" .$rows['name']. "</option>";
+                                            }
+
+
+                                        ?>
+                                        </select>
+                                    </div>
+                    
 
                                 </div>
                                 <br>
@@ -103,9 +124,9 @@
                         <div class="col-md-4 text-center">Col3</div>
                     </div>
                     <table class="table">
-                        <div class="col-md-4 text-center">Aviable 10</div>
+                        <div class="col-md-4 text-center">Avaible 10</div>
                         <div class="col-md-4 text-center">Full</div>
-                        <div class="col-md-4 text-center">Aviable 5</div>
+                        <div class="col-md-4 text-center">Avaible 5</div>
                     </table>
                 </div>
             </div>
@@ -134,22 +155,22 @@ if(!empty($_POST['idcard_person']) && !empty($_POST['name_person']) && !empty($_
     }
 }
 else if(!empty($_POST['lc_number']) && !empty($_POST['car_brand']) && !empty($_POST['idcard']) ){
-        
-        $license = $_POST['lc_number'];
-        $carBrand = $_POST['car_brand'];
-        $idcard_car = $_POST['idcard'];
-        if($license && $carBrand && $idcard_car ){
-            $connect = mysql_connect("localhost","root","") or die("Couldn't connect to the DB!!");
-            mysql_select_db("parking_registration") or die("Couldn't find database");
-            $id = mysql_query("SELECT person_id FROM person WHERE id_card_number = '$idcard_car' ");
-            $id_result =  mysql_result($id,0);
-            
-            
-            $sql2 = "INSERT INTO car (license, brand , person_id) VALUES ('$license', '$carBrand' , '$id_result')";
 
-            $query2 = mysql_query($sql2);
+    $license = $_POST['lc_number'];
+    $carBrand = $_POST['car_brand'];
+    $idcard_car = $_POST['idcard'];
+    if($license && $carBrand && $idcard_car ){
+        $connect = mysql_connect("localhost","root","") or die("Couldn't connect to the DB!!");
+        mysql_select_db("parking_registration") or die("Couldn't find database");
+        $id = mysql_query("SELECT person_id FROM person WHERE id_card_number = '$idcard_car' ");
+        $id_result =  mysql_result($id,0);
 
-        }
+
+        $sql2 = "INSERT INTO car (license, brand , person_id) VALUES ('$license', '$carBrand' , '$id_result')";
+
+        $query2 = mysql_query($sql2);
+
+    }
 }
 
 

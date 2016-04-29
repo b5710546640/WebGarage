@@ -37,7 +37,7 @@
                 <li class="" id="customer"><a href="#Regis_table" data-toggle="tab">Registration Table</a></li>
             </ul>
             <ul id="myTab-right" class="nav navbar-nav navbar-right">
-                <li class=""><button class="btn btn-default" type="button" id="setting"><a href="car_regis.html">Back to home page</a></button></li>
+                <li class=""><button class="btn btn-default" type="button" id="setting"><a href="car_regis.php">Back to home page</a></button></li>
             </ul>
             </div>
             
@@ -53,9 +53,9 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>Name Garage</th>
-                                        <th>#Slot</th>
-                                        <th></th>
+                                        <th style="width: 40%">Name Garage</th>
+                                        <th style="width: 30%">#Slot</th>
+                                        <th style="width: 30%"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -86,7 +86,9 @@
                                             <td><input type="text" id="name_garage" class="form-control" placeholder="new garage" name = "name_garage" ></td>
                                             <td><input type="text" id="capacity_garage" class="form-control" placeholder="capacity" name="capacity_garage" ></td>
                                             <td><span class="input-group-btn">
-                                                <button class="btn btn-success" type="submit" id="add_garage_btn">Add Garage</button> 
+                                                <button class="btn btn-success" type="submit" id="add_garage_btn">Add Garage
+                                    
+                                                </button> 
                                                 </span></td> 
 
                                         </tr>
@@ -120,15 +122,15 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th>Brand</th>
-                                        <th></th>
+                                        <th style="width: 50%">Brand</th>
+                                        <th style="width: 50%"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td>Toyota</td>
                                         <td><span class="input-group-btn">
-                                            <button class="btn btn-default" type="button" id="submit_btn" href="#profile" data-toggle="tab">edit</button>
+                                            <button class="btn btn-default " type="button" id="submit_btn" href="#profile" data-toggle="tab">edit</button>
                                             </span></td>
                                     </tr>
                                     <tr>
@@ -187,6 +189,19 @@
 
             </div>
         </nav>
+        <?php
+        
+        $connect = mysql_connect("localhost","root","") or die("Couldn't connect to the DB!!");
+        mysql_select_db("parking_registration") or die("Couldn't find database");
+        
+        $count = mysql_query("SELECT COUNT(*) FROM brand");
+        $count_result = mysql_result($count,0);
+        for($i = 1 ; $i <= $count_result ; $i++){
+            $query = mysql_query("SELECT name FROM brand WHERE id_brand = '$i' ");
+            $brand_name = mysql_result($query,0);  
+            echo $brand_name;
+        }
+    ?>
     </body>
 
 </html>
