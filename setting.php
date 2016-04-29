@@ -25,22 +25,22 @@
                 padding-left: 100px;
                 padding-right: 100px;
             }
-            
+
         </style>
     </head>
     <body id="bg">
         <nav class="navbar navbar-default">
             <div class="row" id = "tab-menu">
-            <ul id="myTab" class="nav navbar-nav navbar-left">
-                <li class="active" id="homepage"><a href="#Garage_slot" data-toggle="tab">Garage Setting</a></li>
-                <li class="" id="customer"><a href="#Brand" data-toggle="tab">Brand</a></li>
-                <li class="" id="customer"><a href="#Regis_table" data-toggle="tab">Registration Table</a></li>
-            </ul>
-            <ul id="myTab-right" class="nav navbar-nav navbar-right">
-                <li class=""><button class="btn btn-default" type="button" id="setting"><a href="car_regis.php">Back to home page</a></button></li>
-            </ul>
+                <ul id="myTab" class="nav navbar-nav navbar-left">
+                    <li class="active" id="homepage"><a href="#Garage_slot" data-toggle="tab">Garage Setting</a></li>
+                    <li class="" id="customer"><a href="#Brand" data-toggle="tab">Brand</a></li>
+                    <li class="" id="customer"><a href="#Regis_table" data-toggle="tab">Registration Table</a></li>
+                </ul>
+                <ul id="myTab-right" class="nav navbar-nav navbar-right">
+                    <li class=""><button class="btn btn-default" type="button" id="setting"><a href="car_regis.php">Back to home page</a></button></li>
+                </ul>
             </div>
-            
+
 
             <br>
 
@@ -49,60 +49,109 @@
                     <br>
                     <div class="row" id="garage_all">
                         <br>
-                        <div class="row">
-                            <table class="table table-bordered">
+                        <div class="col-md-6">
+
+                            <?php
+
+
+$connect = mysql_connect("localhost","root","") or die("Couldn't connect to the DB!!");
+mysql_select_db("parking_registration") or die("Couldn't find database");
+
+
+# Prepare the SELECT Query
+$selectSQL = 'SELECT * FROM garage';
+$selectRes = mysql_query($selectSQL);
+
+                            ?>
+
+
+                            <table class="table table-bordered" style="width: 500px">
                                 <thead>
                                     <tr>
-                                        <th style="width: 40%">Name Garage</th>
-                                        <th style="width: 30%">#Slot</th>
-                                        <th style="width: 30%"></th>
+                                        <th style="width: 80%"><font size="6">Name Garage</font></th>
+                                        <th style="width: 20%"><font size="6">#Slot</font></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>A</td>
-                                        <td>10</td>
-                                        <td><span class="input-group-btn">
-                                            <button class="btn btn-default" type="button" id="submit_btn" href="#profile" data-toggle="tab">edit</button>
-                                            </span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>B</td>
-                                        <td>10</td>
-                                        <td><span class="input-group-btn">
-                                            <button class="btn btn-default" type="button" id="submit_btn" href="#profile" data-toggle="tab">edit</button>
-                                            </span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>C</td>
-                                        <td>10</td>
-                                        <td><span class="input-group-btn">
-                                            <button class="btn btn-default" type="button" id="submit_btn" href="#profile" data-toggle="tab">edit</button>
-                                            </span></td>
-                                    </tr>
-                                    <form method = "post" action = "setting_garage.php" id = "add_garage_action">
-                                        <tr>
 
-                                            <td><input type="text" id="name_garage" class="form-control" placeholder="new garage" name = "name_garage" ></td>
-                                            <td><input type="text" id="capacity_garage" class="form-control" placeholder="capacity" name="capacity_garage" ></td>
-                                            <td><span class="input-group-btn">
-                                                <button class="btn btn-success" type="submit" id="add_garage_btn">Add Garage
-                                    
-                                                </button> 
-                                                </span></td> 
+                                    <?php
 
-                                        </tr>
-                                    </form>
+if( mysql_num_rows( $selectRes )==0 ){
+    echo '<tr><td colspan="3">No Rows Returned</td></tr>';
+}else{
+    while( $row = mysql_fetch_assoc( $selectRes ) ){
+        echo "<tr><td>{$row['garage_name']}</td><td>{$row['available_slot']}</td></tr>\n";
+
+    }
+}
+                                    ?>
+
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-                    <div class="row"><br></div>
-                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <form method = "post" action = "setting_garage.php" id = "add_garage_action">
+
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class ="col-md-7">
+                                                <input type="text" id="name_garage" class="form-control" placeholder="new garage" name = "name_garage" >
+                                            </div>
+                                
+                                            <div class="col-md-5">
+                                                <input type="text" id="capacity_garage" class="form-control" placeholder="capacity" name="capacity_garage" >
+                                            </div>
+                                        </div>
+                                        <div class="row"><br></div>
+                                        <div class="row">
+                                            <div class="col-md-1"></div>
+                                            <div class="col-md-11">                                           
+
+                                                <div class="form-group">
+                                                    <select name="select_garage" class="form-control" id="sel2" style="width: 100px" >
+
+                                                        <?php
+
+session_start();
+$connect = mysql_connect("localhost","root","") or die("Couldn't connect to the DB!!");
+mysql_select_db("parking_registration") or die("Couldn't find database");
+
+$query = "SELECT * FROM garage";
+$result = mysql_query($query);
+while ($rows = mysql_fetch_array($result)) {
+    echo "<option value=" .$rows['garage_id']. ">" .$rows['garage_name']. "</option>";
+}
+
+
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row"><span class="input-group-btn">
+                                            <button class="btn btn-success" type="submit" id="add_garage_btn" name="add_garage" alt="add_garage">Add Garage</button> 
+                                            </span></div>
+                                            <div class="row"><br></div>
+                                        <div class="row"><span class="input-group-btn">
+                                            <button class="btn btn-success" type="submit" id="add_garage_btn" name="delete_garage" alt="delete_garage">Delete</button> 
+                                            </span></div>
+                                    </div>
+
+
+
+                                </form>
+                            </div>
+
+
+                        </div>
 
                     </div>
+
                     <br>
-                    
+
                     <br>
                 </div>
                 <div class="tab-pane fade" id="Brand">
@@ -189,18 +238,18 @@
 
             </div>
         </nav>
-        <?php
-        
-        $connect = mysql_connect("localhost","root","") or die("Couldn't connect to the DB!!");
-        mysql_select_db("parking_registration") or die("Couldn't find database");
-        
-        $count = mysql_query("SELECT COUNT(*) FROM brand");
-        $count_result = mysql_result($count,0);
-        for($i = 1 ; $i <= $count_result ; $i++){
-            $query = mysql_query("SELECT name FROM brand WHERE id_brand = '$i' ");
-            $brand_name = mysql_result($query,0);  
-            echo $brand_name;
-        }
+    <?php
+
+$connect = mysql_connect("localhost","root","") or die("Couldn't connect to the DB!!");
+mysql_select_db("parking_registration") or die("Couldn't find database");
+
+$count = mysql_query("SELECT COUNT(*) FROM brand");
+$count_result = mysql_result($count,0);
+for($i = 1 ; $i <= $count_result ; $i++){
+    $query = mysql_query("SELECT name FROM brand WHERE id_brand = '$i' ");
+    $brand_name = mysql_result($query,0);  
+    echo $brand_name;
+}
     ?>
     </body>
 

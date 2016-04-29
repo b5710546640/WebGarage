@@ -27,3 +27,10 @@
                                         }
 
                                         ?>
+                                        
+                                       
+<!--
+                                    button add ->  add_garage
+                                    button delete -> delete_garage
+                                    
+                                    id garage -> select_garage-->

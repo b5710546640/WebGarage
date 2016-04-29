@@ -29,8 +29,7 @@
 
                     <div class="tab-pane fade active in"  id="profile">
                         <br>
-                        <form method = "post" action = "<?php echo htmlspecialchars($_SERVER['PHP_SELF']); 
-                                                        ?>" id = "add_garage_action">
+                        <form method = "post" action = "setting_customer.php" id = "add_garage_action">
                             <div class="row" id="input2">
                                 <div class="input-group">
                                     <input type="text" id="input-idcard"
@@ -62,8 +61,7 @@
                     </div>
                     <div class="tab-pane fade" id="Car_regis_content">
                         <br>
-                        <form method = "post" action = "<?php echo htmlspecialchars($_SERVER['PHP_SELF']); 
-                                                        ?>" id = "add_car_action">
+                        <form method = "post" action = "setting_car.php" id = "add_car_action">
                             <div class="row" id="input">
                                 <div class="row">
                                     <div class="input-group">
@@ -108,7 +106,7 @@ while ($rows = mysql_fetch_array($result)) {
                                 </div>
                                 <br>
                             </div>
-                            </from>
+                            </form>
                     </div>
 
                 </div>
@@ -118,106 +116,52 @@ while ($rows = mysql_fetch_array($result)) {
                 <div class="panel panel-default">
 
 
-                    
+
 
 
                     <div class="panel-heading">Garage Status</div>
                     <div class="panel-body">
-                       <?php
+                        <?php
 
 
-                                $connect = mysql_connect("localhost","root","") or die("Couldn't connect to the DB!!");
-                                mysql_select_db("parking_registration") or die("Couldn't find database");
+$connect = mysql_connect("localhost","root","") or die("Couldn't connect to the DB!!");
+mysql_select_db("parking_registration") or die("Couldn't find database");
 
-                               
-                             # Prepare the SELECT Query
-                              $selectSQL = 'SELECT * FROM garage';
-                              $selectRes = mysql_query($selectSQL);
-    
+
+# Prepare the SELECT Query
+$selectSQL = 'SELECT * FROM garage';
+$selectRes = mysql_query($selectSQL);
+
                         ?>
                         <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Name Gargage</th>
-                                <th>Available</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                           
-                           
-                           <?php
-      if( mysql_num_rows( $selectRes )==0 ){
-        echo '<tr><td colspan="2">No Rows Returned</td></tr>';
-      }else{
-        while( $row = mysql_fetch_assoc( $selectRes ) ){
-          echo "<tr><td>{$row['garage_name']}</td><td>{$row['available_slot']}</td></tr>\n";
-        }
-      }
-    ?>
+                            <thead>
+                                <tr>
+                                    <th>Name Gargage</th>
+                                    <th>Available</th>
+                                </tr>
+                            </thead>
+                            <tbody>
 
-                        </tbody>
-                    </table>
+
+                                <?php
+if( mysql_num_rows( $selectRes )==0 ){
+    echo '<tr><td colspan="2">No Rows Returned</td></tr>';
+}else{
+    while( $row = mysql_fetch_assoc( $selectRes ) ){
+        echo "<tr><td>{$row['garage_name']}</td><td>{$row['available_slot']}</td></tr>\n";
+    }
+}
+                                ?>
+
+                            </tbody>
+                        </table>
 
                     </div>
                 </div>
             </div>
 
         </div>
-        <?php
-//        session_start();
-if(!empty($_POST['idcard_person']) && !empty($_POST['name_person']) && !empty($_POST['lastname_person']) ){
-    $idcard = $_POST['idcard_person'];
-    $name_ps = $_POST['name_person'];
-    $lastname_ps = $_POST['lastname_person'];
 
-
-    if($idcard && $name_ps && $lastname_ps  ) {
-        $connect = mysql_connect("localhost","root","") or die("Couldn't connect to the DB!!");
-        mysql_select_db("parking_registration") or die("Couldn't find database");
-
-        $sql = "INSERT INTO person (id_card_number, person_name , person_lastname) VALUES ('$idcard', '$name_ps' , '$lastname_ps')";
-
-        $query = mysql_query($sql);
-
-    }
-
-    else{
-        die("Please enter the idcard, name, lastname!");
-    }
-}
-else if(!empty($_POST['lc_number']) && !empty($_POST['car_brand']) && !empty($_POST['idcard']) ){
-
-    $license = $_POST['lc_number'];
-    $carBrand = $_POST['car_brand'];
-    $idcard_car = $_POST['idcard'];
-    if($license && $carBrand && $idcard_car ){
-        $connect = mysql_connect("localhost","root","") or die("Couldn't connect to the DB!!");
-        mysql_select_db("parking_registration") or die("Couldn't find database");
-        $id = mysql_query("SELECT person_id FROM person WHERE id_card_number = '$idcard_car' ");
-        $id_result =  mysql_result($id,0);
-
-
-        $sql2 = "INSERT INTO car (license, brand , person_id) VALUES ('$license', '$carBrand' , '$id_result')";
-
-        $query2 = mysql_query($sql2);
-        
-        $slot_id = mysql_result(mysql_query("SELECT slot_id FROM parking_slot WHERE status = 'Available'"),0);
-        $query_update_parking_slot = mysql_query("UPDATE parking_slot SET status = 'Unavailable' WHERE slot_id = '$slot_id'");
-        
-        $garage_id = mysql_result(mysql_query("SELECT garage_id FROM parking_slot WHERE slot_id = '$slot_id'"),0);
-        $query_udpate_garage = mysql_query("UPDATE garage SET available_slot = available_slot-1 WHERE garage_id = '$garage_id'");
-        
-        $car_id = mysql_result(mysql_query("SELECT car_id FROM car WHERE license = '$license'"),0);
-        $sql_insert_parking_card = "INSERT INTO parking_card (slot_id,car_id) VALUE ('$slot_id','$car_id')";
-        $query = mysql_query($sql_insert_parking_card);
-        
-        header("Location:car_regist.php");
-        
-    }
-}
-
-
-        ?>
 
     </body>
     <script src="jquery-2.1.4.min.js"></script>
