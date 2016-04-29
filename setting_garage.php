@@ -3,8 +3,8 @@
                                         session_start();
                                         $name = $_POST['name_garage'];
                                         $capacity = $_POST['capacity_garage'];
-
-                                        if($name && $capacity) {
+                                        $select_garage = $_POST['select_garage'];
+                                        if($name && $capacity && isset($_POST['add_garage'])) {
                                             $connect = mysql_connect("localhost","root","") or die("Couldn't connect to the DB!!");
                                             mysql_select_db("parking_registration") or die("Couldn't find database");
 
@@ -20,6 +20,15 @@
                                             }
                                             
                                             header("Location:setting.php");
+                                        }
+                                        elseif(isset($_POST['delete_garage'])){
+                                            $connect = mysql_connect("localhost","root","") or die("Couldn't connect to the DB!!");
+                                            mysql_select_db("parking_registration") or die("Couldn't find database");
+                                            
+                                            $sql_drop_garage = mysql_query("DELETE FROM garage WHERE garage_id = '$select_garage'");
+                                            echo "success";
+                                            header("Location:setting.php");
+                                            
                                         }
                                         else{
                                             die("Please enter the name garage and capacity!");
