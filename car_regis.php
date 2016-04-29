@@ -72,28 +72,28 @@
                                 </div>
                                 <div class="row"><br></div>
                                 <div class="row">
-<!--                                    <input type="text" id="input-brand" class="form-control" placeholder="Car brand" name="car_brand" >-->
+                                    <!--                                    <input type="text" id="input-brand" class="form-control" placeholder="Car brand" name="car_brand" >-->
                                     <div class="form-group">
                                         <label for="sel1">brand:</label>
                                         <select name="car_brand" class="form-control" id="sel1"  >
-                                                 
-                                        <?php
 
-                                            session_start();
-                                            $connect = mysql_connect("localhost","root","") or die("Couldn't connect to the DB!!");
-                                            mysql_select_db("parking_registration") or die("Couldn't find database");
+                                            <?php
 
-                                            $query = "SELECT * FROM brand";
-                                            $result = mysql_query($query);
-                                            while ($rows = mysql_fetch_array($result)) {
-                                                echo "<option value=" .$rows['name']. ">" .$rows['name']. "</option>";
-                                            }
+session_start();
+$connect = mysql_connect("localhost","root","") or die("Couldn't connect to the DB!!");
+mysql_select_db("parking_registration") or die("Couldn't find database");
+
+$query = "SELECT * FROM brand";
+$result = mysql_query($query);
+while ($rows = mysql_fetch_array($result)) {
+    echo "<option value=" .$rows['name']. ">" .$rows['name']. "</option>";
+}
 
 
-                                        ?>
+                                            ?>
                                         </select>
                                     </div>
-                    
+
 
                                 </div>
                                 <br>
@@ -117,17 +117,48 @@
             <div class="row" id="status">
                 <div class="panel panel-default">
 
-                    <div class="panel-heading">Aviable Garage</div>
+
+                    
+
+
+                    <div class="panel-heading">Garage Status</div>
                     <div class="panel-body">
-                        <div class="col-md-4 text-center">Col1</div>
-                        <div class="col-md-4 text-center">Col2</div>
-                        <div class="col-md-4 text-center">Col3</div>
-                    </div>
-                    <table class="table">
-                        <div class="col-md-4 text-center">Avaible 10</div>
-                        <div class="col-md-4 text-center">Full</div>
-                        <div class="col-md-4 text-center">Avaible 5</div>
+                       <?php
+
+
+                                $connect = mysql_connect("localhost","root","") or die("Couldn't connect to the DB!!");
+                                mysql_select_db("parking_registration") or die("Couldn't find database");
+
+                               
+                             # Prepare the SELECT Query
+                              $selectSQL = 'SELECT * FROM garage';
+                              $selectRes = mysql_query($selectSQL);
+    
+                        ?>
+                        <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Name Gargage</th>
+                                <th>Available</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                           
+                           
+                           <?php
+      if( mysql_num_rows( $selectRes )==0 ){
+        echo '<tr><td colspan="2">No Rows Returned</td></tr>';
+      }else{
+        while( $row = mysql_fetch_assoc( $selectRes ) ){
+          echo "<tr><td>{$row['garage_name']}</td><td>{$row['available_slot']}</td></tr>\n";
+        }
+      }
+    ?>
+
+                        </tbody>
                     </table>
+
+                    </div>
                 </div>
             </div>
 
