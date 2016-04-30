@@ -1,0 +1,17 @@
+#bg_settingpage{
+    background-image: url(Resource/wallpaper_mainpage.jpg);
+}
+
+#foreground_settingpage{
+    height: 900px;
+    background-color: white;
+}
+
+#AllTabs_setting{
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+#list_brand{
+    align-items: center;
+}
