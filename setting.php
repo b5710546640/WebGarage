@@ -176,24 +176,21 @@ while ($rows = mysql_fetch_array($result)) {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>Toyota</td>
-                                        <td><span class="input-group-btn">
-                                            <button class="btn btn-default " type="button" id="submit_btn" href="#profile" data-toggle="tab">edit</button>
-                                            </span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Honda</td>
-                                        <td><span class="input-group-btn">
-                                            <button class="btn btn-default" type="button" id="submit_btn" href="#profile" data-toggle="tab">edit</button>
-                                            </span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Suzuki</td>
-                                        <td><span class="input-group-btn">
-                                            <button class="btn btn-default" type="button" id="submit_btn" href="#profile" data-toggle="tab">edit</button>
-                                            </span></td>
-                                    </tr>
+                                   
+                                   
+                                      <?php
+
+                                            $connect = mysql_connect("localhost","root","") or die("Couldn't connect to the DB!!");
+                                            mysql_select_db("parking_registration") or die("Couldn't find database");
+
+                                            $all_brand = mysql_query("SELECT name FROM brand");
+
+                                            while ($rows_brand = mysql_fetch_array($all_brand)) {
+                                                 echo "<tr><td>{$rows_brand['name']}</td></tr>\n";
+                                            }
+
+                                        ?>
+                                   
 
                                 </tbody>
                             </table>
@@ -206,10 +203,7 @@ while ($rows = mysql_fetch_array($result)) {
                     <?php
                         $connect = mysql_connect("localhost","root","") or die("Couldn't connect to the DB!!");
                         mysql_select_db("parking_registration") or die("Couldn't find database");
-                        # Prepare the SELECT Query
-//                        $selectSQL = 'SELECT * FROM garage';
-//                        $selectRes = mysql_query($selectSQL);
-                        $sql_card = mysql_query("SELECT slot_id,car_id FROM parking_card");
+                        $sql_card = mysql_query("SELECT slot_id,car_id,arrival_time,departure_status FROM parking_card");
                         
                     ?>
                     
@@ -230,11 +224,11 @@ while ($rows = mysql_fetch_array($result)) {
                                 }else{
                                     
                                     while( $row = mysql_fetch_assoc( $sql_card ) ){
-//                                        $slot_id = mysql_result($sql_card,0);
-//                                        $slot_car_id = mysql_result($sql_card,1);
-                                        
+                              
                                         $slot_id = $row['slot_id'];
                                         $slot_car_id = $row['car_id'];
+                                        $arrival_result = $row['arrival_time'];
+                                        $depart_result = $row['departure_status'];
                                         
                                         $sql_license = mysql_query("SELECT license FROM car WHERE car_id = '$slot_car_id'");
                                         $license = mysql_result($sql_license,0);
@@ -246,32 +240,14 @@ while ($rows = mysql_fetch_array($result)) {
                                         $garage_name = mysql_result($sql_garage_name,0);
                                         
                                         $slot_name = $garage_name . "-" . $slot_id;
-                                        
-                                        echo "<tr><td>{$license}</td><td>{$slot_name}</td></tr>\n";
+
+                                    
+                                        echo "<tr><td>{$license}</td><td>{$slot_name}</td><td>{$arrival_result}</td><td>{$depart_result}</td></tr>\n";
                                     }
                                     
                                 }
                             ?>
-<!--
-                            <tr>
-                                <td>License1</td>
-                                <td>A1</td>
-                                <td>10.00</td>
-                                <td>-</td>
-                            </tr>
-                            <tr>
-                                <td>License2</td>
-                                <td>A2</td>
-                                <td>10.00</td>
-                                <td>-</td>
-                            </tr>
-                            <tr>
-                                <td>License3</td>
-                                <td>A3</td>
-                                <td>10.00</td>
-                                <td>-</td>
-                            </tr>
--->
+
                         </tbody>
                     </table>
                 </div>

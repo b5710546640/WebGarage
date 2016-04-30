@@ -48,7 +48,7 @@
                                                                       placeholder="Customer Name" name="name_person" ></div>
                                         <div class="col-md-6"> <input type="text" id="input-lastname"
                                                                       class="form-control" 
-                                                                      placeholder="Customer Name" name="lastname_person" ></div>
+                                                                      placeholder="Customer LastName" name="lastname_person" ></div>
 
                                     </div>
 
@@ -120,9 +120,44 @@
                         <form method = "post" action = "setting_departure.php" id = "add_car_action">
                             <div class="row" id="input">
                                 <div class="row">
-                                    <div class="input-group">
-                                        <input type="text" id="input-lc-leave" class="form-control" placeholder="Car License" name="lc_leave_number" >
+                                
+                                   
+                      
+                                    <div class="bs-searchbox">
+                                     <div class="form-group">
+                                        
+                                        <select name="lc_leave_number" class="form-control" id="sel2" data-live-search="true" >
+
+                                        <?php
+
+                                            $connect = mysql_connect("localhost","root","") or die("Couldn't connect to the DB!!");
+                                            mysql_select_db("parking_registration") or die("Couldn't find database");
+
+
+                                            $sql_slot_unavailable = mysql_query("SELECT slot_id FROM parking_slot WHERE status = 'Unavailable'");
+
+                                            $row_slot = mysql_num_rows($sql_slot_unavailable);
+
+                                            for ($i = 0 ; $i < $row_slot ;$i++  ) {
+                                                $slot_id_result = mysql_result($sql_slot_unavailable,$i);
+                                                $sql_car_id = mysql_query("SELECT car_id FROM parking_card WHERE slot_id = '$slot_id_result' AND departure_status = 'wait' ");
+                                                $car_id_result = mysql_result( $sql_car_id,0);
+                                                $car_license_number = mysql_query("SELECT license FROM car WHERE car_id = '$car_id_result'");
+                                                $license_result = mysql_result($car_license_number,0);
+                                                
+                                                
+                                                
+                                                if($license_result)
+                                                echo "<option value=" .$license_result. ">" .$license_result. "</option>";
+                                            }
+
+                                        ?>
+                                        </select>
                                     </div>
+                                    </div>
+                                    
+                                    
+                                    
                                 </div>
                                 <div class="row"><br></div>
 
