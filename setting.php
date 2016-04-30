@@ -202,6 +202,18 @@ while ($rows = mysql_fetch_array($result)) {
                 </div>
 
                 <div class="tab-pane fade" id="Regis_table">
+                    
+                    <?php
+                        $connect = mysql_connect("localhost","root","") or die("Couldn't connect to the DB!!");
+                        mysql_select_db("parking_registration") or die("Couldn't find database");
+                        # Prepare the SELECT Query
+//                        $selectSQL = 'SELECT * FROM garage';
+//                        $selectRes = mysql_query($selectSQL);
+                        $sql_card = mysql_query("SELECT slot_id,car_id FROM parking_card");
+                        
+                    ?>
+                    
+                    
                     <table class="table table-bordered">
                         <thead>
                             <tr>
@@ -212,6 +224,35 @@ while ($rows = mysql_fetch_array($result)) {
                             </tr>
                         </thead>
                         <tbody>
+                            <?php
+                                if( mysql_num_rows( $sql_card )==0 ){
+                                echo '<tr><td colspan="2">No Rows Returned</td></tr>';
+                                }else{
+                                    
+                                    while( $row = mysql_fetch_assoc( $sql_card ) ){
+//                                        $slot_id = mysql_result($sql_card,0);
+//                                        $slot_car_id = mysql_result($sql_card,1);
+                                        
+                                        $slot_id = $row['slot_id'];
+                                        $slot_car_id = $row['car_id'];
+                                        
+                                        $sql_license = mysql_query("SELECT license FROM car WHERE car_id = '$slot_car_id'");
+                                        $license = mysql_result($sql_license,0);
+                                        
+                                        $sql_garage_id = mysql_query("SELECT garage_id FROM parking_slot WHERE slot_id = '$slot_id'");
+                                        $garage_id = mysql_result($sql_garage_id,0);
+                                        
+                                        $sql_garage_name = mysql_query("SELECT garage_name FROM garage WHERE garage_id = '$garage_id'");
+                                        $garage_name = mysql_result($sql_garage_name,0);
+                                        
+                                        $slot_name = $garage_name . "-" . $slot_id;
+                                        
+                                        echo "<tr><td>{$license}</td><td>{$slot_name}</td></tr>\n";
+                                    }
+                                    
+                                }
+                            ?>
+<!--
                             <tr>
                                 <td>License1</td>
                                 <td>A1</td>
@@ -230,6 +271,7 @@ while ($rows = mysql_fetch_array($result)) {
                                 <td>10.00</td>
                                 <td>-</td>
                             </tr>
+-->
                         </tbody>
                     </table>
                 </div>

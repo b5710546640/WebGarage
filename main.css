@@ -1,11 +1,16 @@
 #foreground{
-    height: 800px;;
-    background-color: aqua;
+    height: 900px;
+    background-color: white;
+}
+
+#bg{
+    /*    background-color: "#FFF051";*/
+    background-image: url(Resource/wallpaper_mainpage.jpg);    
 }
 
 #customer_profile{
-  padding-left: 100px;
-  padding-right: 100px;
+    padding-left: 100px;
+    padding-right: 100px;
 }
 
 #input-idcard{
@@ -20,6 +25,20 @@
     width: 300px;
 }
 
+#profile{
+    width: 100%;
+    height: 400px;
+}
+
+#Car_regis_content{
+    width: 100%;
+    height: 400px;
+}
+
+#Car_depart_content{
+    width: 100%;
+    height: 400px;
+}
 
 
 #input{
@@ -39,7 +58,21 @@
     padding-right: 100px;
 }
 
+#nav_bar{
+    height: 40%;
+    width: 100%;
+
+}
+
+#panel_status{
+    height: 500px;
+    width: 100%;
+    overflow-y:scroll;
+}
+
 #status{
+    height: 60%;
+    width: 100%;
     padding-left: 100px;
     padding-right: 100px;
 }
