@@ -27,7 +27,7 @@
                         </ul>
                     </li>
 
-                    <!--                    <li class=""><button class="btn btn-default btn-lg" type="button" id="setting">Setting</a></button></li>-->
+                    
                 </ul>
                 <br>
 
@@ -192,12 +192,23 @@ for ($i = 0 ; $i < $row_slot ;$i++  ) {
 
                 </div>
             </nav>
-
             <div class="row" id="status">
+               
+               
+                                        <div class="panel panel-default">
+
+                                            <div class="panel-heading" id="header_table"><div class="row">
+                                                <h4>&nbsp;&nbsp;Garage Status</h4>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+               
                 <div class="panel panel-default" id="panel_status">
 
-                    <div class="panel-heading" id="Header_status">Garage Status</div>
-                    <div class="panel-body">
+                   
+                    <div class="panel-body text-center">
                         <?php
 
 $connect = mysql_connect("localhost","root","") or die("Couldn't connect to the DB!!");
@@ -213,8 +224,8 @@ $selectRes = mysql_query($selectSQL);
                         <table class="table table-fixed">
                             <thead>
                                 <tr>
-                                    <th class="col-md-3">Name Gargage</th>
-                                    <th class="col-md-3">Available</th>
+                                    <th class="col-md-3 text-center">Name Gargage</th>
+                                    <th class="col-md-3 text-center">Available</th>
                                 </tr>
                             </thead>
                             <tbody id="body-table">
@@ -243,14 +254,6 @@ if( mysql_num_rows( $selectRes )==0 ){
     <script src="jquery-2.1.4.min.js"></script>
 
 
-    <!--
-<script type="text/javascript">
-document.getElementById("setting").onclick = function () {
-location.href = "setting.php";
-};
-</script>
--->
-
     <script>
         $('#submit_btn').click(function(){
             $("#car_regis_tab").removeClass("active");
@@ -266,18 +269,19 @@ location.href = "setting.php";
 
         });
 
-        var offset = $( ".sticky-header" ).offset();
-        var sticky = document.getElementById("Header_status")
-
-        $(window).scroll(function() {
-
-            if ( $('panal_status').scrollTop() > offset.top){
-                $('.sticky-header').addClass('fixed');
-            } else {
-                $('.sticky-header').removeClass('fixed');
-            } 
-
-        });
+        
+        
 
     </script>
+    
+    <script>
+        var checkIdCardRedundancy = "<?php echo $_SESSION["report_repeat_idcard_fail"] ?>";
+        alert(checkIdCardRedundancy);   
+         <?php unset($_SESSION['report_repeat_idcard_fail']); ?>
+    </script>
+
+
+    
+   
+
 </html>

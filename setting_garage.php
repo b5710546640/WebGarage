@@ -25,8 +25,8 @@
                                                 }
                                                 echo "suceess";
                                             }else{
-                                                // pop-up
-                                                echo "fail";
+                                                $_SESSION["report_add_fail"]= "Can't add garage.";
+//                                                echo "fail";
                                             }
                                             
                                             header("Location:setting.php");

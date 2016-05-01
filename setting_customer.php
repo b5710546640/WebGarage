@@ -19,8 +19,7 @@
         
             echo  "idcard name lastname sucess";
         }else{
-            echo  "idcard is repeat";
-            //TODO pop-up 
+            $_SESSION["report_repeat_idcard_fail"]= "Have ".$idcard. " already!";
             
         }
          header("Location: car_regis.php");

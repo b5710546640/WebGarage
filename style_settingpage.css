@@ -4,10 +4,16 @@
 
 #foreground_settingpage{
     height: 900px;
-    background-color: white;
+    background-image: url(Resource/white_trans.png);
 }
 
 #AllTabs_setting{
+    background-color: #f5f5f5;
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+#myTabContent{
     padding-left: 100px;
     padding-right: 100px;
 }
@@ -17,7 +23,8 @@
 }
 
 #panel_brand{
-    width: 80%;
+    height: 50%;
+    width: 100%;
 }
 
 #table_garage{
@@ -25,15 +32,23 @@
 }
 
 #panel_garage{
-    height: 500px;
+    height: 50%;
     overflow-y: scroll;
 }
 
 #panel_car_registration_report{
-    height: 500px;
+    height: 50%;
     overflow: scroll;
 }
 
-#header_table{
-    background-color: gainsboro;
+#header_table_garage{
+    background-image: url(Resource/gray_trans.png);
+}
+
+#header_table_reg{
+    background-image: url(Resource/gray_trans.png);
+}
+
+#header_table_brand{
+    background-image: url(Resource/gray_trans.png);
 }

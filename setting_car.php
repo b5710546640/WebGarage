@@ -43,8 +43,7 @@
                 $query = mysql_query($sql_insert_parking_card);
                 echo "success";
             }else{
-                // pop-up
-                echo "Customer is not member";
+                $_SESSION["report_idcard_fail"]= "This ID Card is not member";
             } 
         }else{
             echo "car not depart";

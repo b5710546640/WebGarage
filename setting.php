@@ -28,7 +28,7 @@
                     <ul id="myTab-right" class="nav navbar-nav navbar-right">
                         <br>
                         <li class="dropdown text-center">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Go<span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Back<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="car_regis.php">Homepage</a></li>
                             </ul>
@@ -43,25 +43,24 @@
                     <div class="tab-pane fade active in" id="Garage_slot">
                         <br>
                         <div class="row" id="garage_all">
-                            <br>
                             <div class="col-md-6">
                                 <div class="row">
                                     <div class="row">
-                                     
-                                        
+
+
                                         <div class="panel panel-default">
 
-                                           <div class="panel-heading" id="header_table"><div class="row">
-                                        <div class="col-md-6 text-center" id="test"><h4>Name Garage</h4></div>
-                                        <div class="col-md-6 text-center" id="test2"><h4>Available Slot</h4></div>
+                                            <div class="panel-heading" id="header_table_garage"><div class="row">
+                                                <div class="col-md-6 text-center" id="test"><h4>Name Garage</h4></div>
+                                                <div class="col-md-6 text-center" id="test2"><h4>Available Slot</h4></div>
+                                                </div>
+
+                                            </div>
+
                                         </div>
-                                          
-                                        </div>
-                                           
-                                        </div>
-                                        
-                            
-                                        
+
+
+
                                     </div>
                                     <div class="row">
                                         <div class="panel panel-default" id="panel_garage">
@@ -122,7 +121,7 @@ if( mysql_num_rows( $selectRes )==0 ){
 
                                         <div class="col-md-1"></div>
 
-                                        <div class="col-md-7">
+                                        <div class="col-md-9">
                                             <div class="row">
                                                 <div class ="col-md-7">
                                                     <input type="text" id="name_garage" class="form-control" placeholder="new garage" name = "name_garage" >
@@ -159,7 +158,7 @@ while ($rows = mysql_fetch_array($result)) {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-2">
                                             <div class="row"><span class="input-group-btn">
                                                 <button class="btn btn-success" type="submit" id="add_garage_btn" name="add_garage" alt="add_garage">Add Garage</button> 
                                                 </span></div>
@@ -189,31 +188,41 @@ while ($rows = mysql_fetch_array($result)) {
                             <div class="row"><br></div>
                             <div class="row">
                                 <div class="col-md-1"></div>
-                                <div class="col0md-10">                            <div class="panel panel-default" id="panel_brand">
+                                <div class="col0md-10">                            
 
-                                <div class="panel-heading">
-                                    <div class="row">
-                                        <div class="col-md-7"><h4>Brand in system</h4></div>
-                                        <div class="col-md-5">
-                                            <form method = "post" action = "setting_brand.php" id = "brand_action">
-                                                <div class="col-md-6"><input type="text" id="new_brand" class="form-control" placeholder="new brand" name="car_brand"></div>
-                                                <div class="col-md-6 text-left">
-                                                    <span class="input-group-btn">
-                                                        <button class="btn btn-success" type="submit" id="add_brand_btn">Add</button>
-                                                    </span>
+
+                                    <div class="panel panel-default">
+
+                                        <div class="panel-heading" id="header_table_brand">
+
+                                            <div class="row">
+                                                <div class="col-md-7"><h4>Brand in system</h4></div>
+                                                <div class="col-md-5">
+                                                    <form method = "post" action = "setting_brand.php" id = "brand_action">
+                                                        <div class="col-md-6"><input type="text" id="new_brand" class="form-control" placeholder="new brand" name="car_brand"></div>
+                                                        <div class="col-md-6 text-left">
+                                                            <span class="input-group-btn">
+                                                                <button class="btn btn-success" type="submit" id="add_brand_btn">Add</button>
+                                                            </span>
+                                                        </div>
+                                                    </form>
                                                 </div>
-                                            </form>
+                                            </div>
+
                                         </div>
+
                                     </div>
 
-                                </div>
-                                <div class="panel-body"> 
-                                    <div class="row text-center" >
 
-                                        <div class="col-md-3"></div>
-                                        <div class="col-md-6"><ul class="list-group">  
+                                    <div class="panel panel-default" id="panel_brand">
 
-                                            <?php
+                                        <div class="panel-body"> 
+                                            <div class="row text-center" >
+
+                                                <div class="col-md-3"></div>
+                                                <div class="col-md-6"><ul class="list-group">  
+
+                                                    <?php
 
 $connect = mysql_connect("localhost","root","") or die("Couldn't connect to the DB!!");
 mysql_select_db("parking_registration") or die("Couldn't find database");
@@ -226,16 +235,18 @@ while ($rows_brand = mysql_fetch_array($all_brand)) {
     echo ">".$rows_brand['name']."</li>";
 }
 
-                                            ?>
+                                                    ?>
 
-                                            </ul></div>
-                                        <div class="col-md-3"></div>
-
-
-                                    </div></div>
+                                                    </ul></div>
+                                                <div class="col-md-3"></div>
 
 
-                            </div></div>
+                                            </div></div>
+
+
+                                    </div>
+
+                                </div>
                                 <div class="col-md-1"></div>
                             </div>
 
@@ -253,14 +264,21 @@ $sql_card = mysql_query("SELECT slot_id,car_id,arrival_time,departure_status FRO
 
                         <div class="panel panel-default">
 
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <h4>Car Registration</h4>
+                            <div class="panel-heading" id="header_table_reg">
+
+                                <div class="row" style="text-align: left">
+                                    <h4>&nbsp;&nbsp;Car Registration</h4></div>
                                 </div>
 
                             </div>
+
+                    
+
+                        <div class="panel panel-default" id="panel_car_registration_report">
+
+  
                             <div class="panel-body">
-                                <table class="table table-bordered">
+                                <table class="table table-fixed">
                                     <thead>
                                         <tr>
                                             <th>#License Number</th>
@@ -301,12 +319,14 @@ if( mysql_num_rows( $sql_card )==0 ){
                                         ?>
 
                                     </tbody>
-                                </table> </div>
+                                </table> 
+                                
+                            </div>
                         </div>
 
+    </div>
 
-
-                    </div>
+                </div>
                 </div>
 
 
@@ -328,19 +348,11 @@ for($i = 1 ; $i <= $count_result ; $i++){
     ?>
     </body>
 <script src="jquery-2.1.4.min.js"></script>
-<script>
-//var offset = $( ".sticky-header" ).offset();
-//var sticky = document.getElementById("sticky-header")
-//
-//$(window).scroll(function() {
-//
-//    if ( $('body').scrollTop() > offset.top){
-//        $('.sticky-header').addClass('fixed');
-//    } else {
-//         $('.sticky-header').removeClass('fixed');
-//    } 
-//
-//});
+
+<script type='text/javascript'>
+    var checkBrand = "<?php echo $_SESSION['report_brand_fail'] ?>";
+    alert(checkBrand);
+    <?php unset($_SESSION['report_brand_fail']); ?>
 </script>
 
 </html>
