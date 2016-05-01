@@ -15,3 +15,25 @@
 #list_brand{
     align-items: center;
 }
+
+#panel_brand{
+    width: 80%;
+}
+
+#table_garage{
+    width: 100%;
+}
+
+#panel_garage{
+    height: 500px;
+    overflow-y: scroll;
+}
+
+#panel_car_registration_report{
+    height: 500px;
+    overflow: scroll;
+}
+
+#header_table{
+    background-color: gainsboro;
+}

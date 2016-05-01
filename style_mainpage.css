@@ -8,6 +8,11 @@
     
 }
 
+#myTabContent{
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
 #AllTabs{
     padding-left: 100px;
     padding-right: 100px;
@@ -16,4 +21,48 @@
 #status{
     padding-left: 100px;
     padding-right: 100px;
+}
+#input-idcard{
+    width: 300px;
+}
+
+#input-name{
+    width: 300px;
+}
+
+#input-lastname{
+    width: 300px;
+}
+
+#input-lc{
+    width: 300px;
+}
+
+#input_id_cartab{
+    width: 300px;
+}
+
+#sel1{
+    width: 300px;
+}
+
+#sel2{
+    width: 300px;
+}
+
+#panel_status{
+    height: 500px;
+    overflow: scroll;
+}
+
+.scrollMore{
+  margin-top:600px;
+}
+
+.fixed{
+  top:0;
+  position:fixed;
+  width:auto;
+  display:none;
+  border:none;
 }

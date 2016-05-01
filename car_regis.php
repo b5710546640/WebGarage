@@ -23,10 +23,7 @@
                     <li class="dropdown text-center">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Setting<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="setting.php?tabinterfaceid=1">Garage</a></li>
-                            <li><a href="setting.php?tabinterfaceid=2">Brand</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="setting.php?tabinterfaceid=3">Car Registration Report</a></li>
+                            <li><a href="setting.php">Setting</a></li>
                         </ul>
                     </li>
 
@@ -86,35 +83,31 @@
 
                                         <div class="row">
                                             <div class="input-group">
-
-                                                <input type="text" id="input-lc" class="form-control" placeholder="Car License" name="lc_number" >
+                                                <div class="row"><input type="text" id="input-lc" class="form-control" placeholder="Car License" name="lc_number" ></div>
+                                                <div class="row"><br></div>
+                                                <div class="row"><input type="text" id="input_id_cartab" class="form-control" placeholder="ID Card Owner" name="idcard" ></div>
                                             </div>
 
-                                            <br>
-                                        </div>
-                                        <div class="row">
-                                            <input type="text" id="input-brand" class="form-control" placeholder="idcard number" name="idcard" >
                                         </div>
 
 
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="row" id="select_brand">
-                                            <div class="form-group">
-                                                <!--                                        <label for="sel1">brand:</label>-->
-                                                <select name="car_brand" class="form-control" id="sel1"  >
+                                        <div class="row">
+                                            <div class="form-group"  id="select_brand">
+                                                <select name="car_brand" class="form-control" id="sel1" >
 
                                                     <?php
 
-                                                        session_start();
-                                                        $connect = mysql_connect("localhost","root","") or die("Couldn't connect to the DB!!");
-                                                        mysql_select_db("parking_registration") or die("Couldn't find database");
+session_start();
+$connect = mysql_connect("localhost","root","") or die("Couldn't connect to the DB!!");
+mysql_select_db("parking_registration") or die("Couldn't find database");
 
-                                                        $query = "SELECT * FROM brand";
-                                                        $result = mysql_query($query);
-                                                        while ($rows = mysql_fetch_array($result)) {
-                                                            echo "<option value=" .$rows['name']. ">" .$rows['name']. "</option>";
-                                                        }
+$query = "SELECT * FROM brand";
+$result = mysql_query($query);
+while ($rows = mysql_fetch_array($result)) {
+    echo "<option value=" .$rows['name']. ">" .$rows['name']. "</option>";
+}
 
                                                     ?>
                                                 </select>
@@ -203,7 +196,7 @@ for ($i = 0 ; $i < $row_slot ;$i++  ) {
             <div class="row" id="status">
                 <div class="panel panel-default" id="panel_status">
 
-                    <div class="panel-heading">Garage Status</div>
+                    <div class="panel-heading" id="Header_status">Garage Status</div>
                     <div class="panel-body">
                         <?php
 
@@ -217,14 +210,14 @@ $selectRes = mysql_query($selectSQL);
                         ?>
 
 
-                        <table class="table table-bordered">
+                        <table class="table table-fixed">
                             <thead>
                                 <tr>
-                                    <th>Name Gargage</th>
-                                    <th>Available</th>
+                                    <th class="col-md-3">Name Gargage</th>
+                                    <th class="col-md-3">Available</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="body-table">
 
                                 <?php
 if( mysql_num_rows( $selectRes )==0 ){
@@ -272,5 +265,19 @@ location.href = "setting.php";
             $("#Car_regis_content").addClass('active in');
 
         });
+
+        var offset = $( ".sticky-header" ).offset();
+        var sticky = document.getElementById("Header_status")
+
+        $(window).scroll(function() {
+
+            if ( $('panal_status').scrollTop() > offset.top){
+                $('.sticky-header').addClass('fixed');
+            } else {
+                $('.sticky-header').removeClass('fixed');
+            } 
+
+        });
+
     </script>
 </html>
