@@ -17,7 +17,6 @@
             echo "new brand";
         }else{
             $_SESSION["report_brand_fail"]= "Have ".$brand_name. " already!";
-//            echo "noooooooo";
         }
         header("Location:setting.php");
     }

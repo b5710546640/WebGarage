@@ -5,7 +5,7 @@
 #foreground_mainpage{
     height: 900px;
     background-image: url(Resource/white_trans.png);
-    
+
 }
 
 #myTabContent{
@@ -22,7 +22,6 @@
 }
 
 #status{
-    background-image: url(Resource/white_trans.png);
     width: auto;
     height: 50%;
     padding-top: 10px;
@@ -65,7 +64,7 @@
 }
 
 .scrollMore{
-  margin-top:600px;
+    margin-top:600px;
 }
 
 #header_table_garage{
